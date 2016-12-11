@@ -1,0 +1,389 @@
+MainWindow:
+    #on_size: root.draw_vector(root.touch)
+    orientation: 'vertical'
+    Label:
+        markup: True
+        text: '[size=32px][color=#0398ff]Controller[/color][sub]for[/sub] [i][b]LabJack[/b][/i][/size]'
+        size_hint_y: 0.1
+
+    BoxLayout:
+        size_hint_y: 0.1
+        Button:
+            text: 'Control'
+            on_release: sm_real_time.current = 'output'
+        Button:
+            text: 'Inputs'
+            on_release: sm_real_time.current = 'set_direction'
+        Button:
+            text:'Network'
+            on_release: sm_second.current = 'connection'
+        Button:
+            text: 'Visualisation'
+            on_release: sm_second.current = 'input'
+        #Button:
+        #    text: 'Functions'
+        #    on_release: sm_real_time.current = 'functions'
+
+    ProgressBar:
+        size_hint_y: 0.01
+        id: pbdata
+        max: 100
+        value: 0
+
+
+
+
+
+    BoxLayout: ### MUSI BYT - kvuli screen manageru
+
+        ScreenManager: # Behaves like relative Layout - that means all childrens pos[0,0], but SM has pos normal according to window position
+            id: sm_real_time
+            Screen:
+                name: 'output'
+
+                BoxLayout:
+                    orientation: 'vertical'
+                    BoxLayout:
+                        size_hint_y: 0.1
+                        BoxLayout:
+
+                            orientation: 'vertical'
+                            Label:
+                                text:'Voltage'
+                            Label:
+                                id: amplit
+                            ProgressBar:
+                                id: pb
+                                value: 0
+                                max:70
+                                size_hint_y: 0.1
+                        BoxLayout:
+                            orientation: 'vertical'
+                            Label:
+                                text: "Frequency"
+                            Label:
+                                id:vel
+                                text: ''
+                            ProgressBar:
+                                id: pb2
+                                value: 0
+                                max:360
+                                size_hint_y: 0.1
+                        BoxLayout:
+                            orientation: 'vertical'
+                            Label:
+                                text: "Logic"
+                            Label:
+                                id:logic
+                                text: 'None'
+
+                    RelativeLayout:
+                        id: display
+                        canvas:
+                            Color:
+                                rgba: 0,1,0,0
+                            Rectangle:
+                                size:self.size
+                                pos: self.pos
+
+                    GridLayout:
+                        size_hint_y: 0.08
+                        spacing: '4dp'
+                        cols: 6
+                        ToggleButton:
+                            id: dac0
+                            text: 'DAC0'
+                            group: 'g'
+                        ToggleButton:
+                            id: dac1
+                            text: 'DAC1'
+                            group: 'g'
+                        ToggleButton:
+                            id: FIO4
+                            text: 'FIO4'
+                            group: 'g'
+                        ToggleButton:
+                            id: FIO5
+                            text: 'FIO5'
+                            group: 'g'
+                        ToggleButton:
+                            id: FIO6
+                            text: 'FIO6'
+                            group: 'g'
+                        ToggleButton:
+                            id: FIO7
+                            text: 'FIO7'
+                            group: 'g'
+                    #Button:
+                    #    size_hint_y:0.1
+                    #    text: 'clear all channels'
+
+            Screen:
+                name: 'functions'
+
+                BoxLayout:
+
+                    orientation: 'vertical'
+                    Label:
+                        size_hint_y: 0.2
+
+                        text: 'Logic Function'
+                    BoxLayout:
+                        size_hint_y: 0.2
+
+                        BoxLayout:
+                            orientation: 'vertical'
+                            CheckBox:
+                                group: 'FIO_G1'
+                            CheckBox:
+                                group: 'FIO_G1'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            CheckBox:
+                                group: 'FIO_G2'
+                            CheckBox:
+                                group: 'FIO_G2'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            CheckBox:
+                                group: 'FIO_G3'
+                            CheckBox:
+                                group: 'FIO_G3'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            CheckBox:
+                                group: 'FIO_G4'
+                            CheckBox:
+                                group: 'FIO_G4'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            CheckBox:
+                                group: 'FIO_G5'
+                            CheckBox:
+                                group: 'FIO_G5'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            CheckBox:
+                                group: 'FIO_G6'
+                            CheckBox:
+                                group: 'FIO_G6'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            CheckBox:
+                                group: 'FIO_G7'
+                            CheckBox:
+                                group: 'FIO_G7'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            CheckBox:
+                                group: 'FIO_G8'
+                            CheckBox:
+                                group: 'FIO_G8'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            CheckBox:
+                                group: 'FIO_G9'
+                            CheckBox:
+                                group: 'FIO_G9'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            CheckBox:
+                                group: 'FIO_G10'
+                            CheckBox:
+                                group: 'FIO_G10'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            CheckBox:
+                                group: 'FIO_G11'
+                            CheckBox:
+                                group: 'FIO_G11'
+                        BoxLayout:
+                            orientation: 'vertical'
+                            CheckBox:
+                                group: 'FIO_G12'
+                            CheckBox:
+                                group: 'FIO_G12'
+                    BoxLayout:
+
+
+
+
+
+            Screen:
+                name: 'set_direction'
+                BoxLayout:
+                    orientation: 'vertical'
+                    Label:
+                        size_hint_y: 0.1
+                        text: 'Set input channels for visualisation'
+                    Label:
+                        size_hint_y: 0.1
+                        text: '|Flexible Input Output channels|'
+                    GridLayout:
+                        size_hint_x: 2/3
+                        cols: 2
+                        spacing: '8dp'
+
+                        Label:
+                            text: 'FIO 4'
+                        ToggleButton:
+                            id: FIOs4
+                            text: 'D'
+                            group: 'g4'
+                        #ToggleButton:
+                         #   text: 'A'
+                         #   group: 'g4'
+                        Label:
+                            text: 'FIO 5'
+                        ToggleButton:
+                            id: FIOs5
+                            text: 'D'
+                            group: 'g5'
+                        #ToggleButton:
+                        #    text: 'A'
+                        #    group: 'g5'
+                        Label:
+                            text: 'FIO 6'
+                        ToggleButton:
+                            id: FIOs6
+                            text: 'D'
+                            group: 'g6'
+                        #ToggleButton:
+                        #    text: 'A'
+                        #    group: 'g6'
+                        Label:
+                            text: 'FIO 7'
+                        ToggleButton:
+                            id: FIOs7
+                            text: 'D'
+                            group: 'g7'
+                        #ToggleButton:
+                        #    text: 'A'
+                        #   group: 'g7'
+                    Label:
+                        text: '|Analog Input channels|'
+                        size_hint_y: 0.1
+                    GridLayout:
+                        size_hint_x: 2/3
+                        cols: 2
+                        spacing: '8dp'
+                        Label:
+
+                            text: 'AIN 0'
+                        ToggleButton:
+                            id: ain0
+                            text: 'On'
+                            group: 'g0'
+                        Label:
+                            text: 'AIN 1'
+                        ToggleButton:
+                            id: ain1
+                            text: 'On'
+                            group: 'g1'
+                        Label:
+                            text: 'AIN 2'
+                        ToggleButton:
+                            id: ain2
+                            text: 'On'
+                            group: 'g2'
+                        Label:
+                            text: 'AIN 3'
+                        ToggleButton:
+                            id: ain3
+                            text: 'On'
+                            group: 'g3'
+
+
+
+
+
+
+
+
+        #Splitter: proste jako BoxLayour
+         #   strip_size: '5pt'
+         #   BoxLayout:
+        ScreenManager: # Behaves like relative Layout - that means all childrens pos[0,0], but SM has pos normal according to window position
+            id: sm_second
+            Screen:
+                name: 'input'
+                BoxLayout:
+                    orientation: 'vertical'
+                    BoxLayout:
+                        id: graph_window
+                    BoxLayout:
+                        size_hint_y: 0.17
+
+                        BoxLayout:
+                            spacing: 1
+                            padding: 3
+                            orientation: 'vertical'
+                            Button:
+                                text: 'Visualize'
+                                on_press: root.start_real_time()
+                            BoxLayout:
+                                Button:
+                                    text: 'Create'
+                                    on_press: root.create_graph()
+                                Button:
+                                    text: 'Delete'
+                                    on_press: root.delete_graph()
+                        BoxLayout:
+                            size_hint_x: 0.3
+                            Label:
+                                id: FPS_g
+                                text: 'FPS: '
+
+
+            Screen:
+                name: 'connection'
+                BoxLayout:
+                    orientation: 'vertical'
+                    BoxLayout:
+                        size_hint_y: 0.1
+                        Label:
+                            text:'IP.adress/port: '
+                        TextInput:
+                            text: '10.0.0.33'
+                            id: t_ip
+                        TextInput:
+                            text: '10011'
+                            id: t_port
+                        Button:
+                            id: con
+                            text: 'Connect'
+                            on_press: root.con()
+                            on_release: con.disabled=True
+                    Button:
+                        text: 'Disconnect'
+                        size_hint_y: 0.1
+                        on_press: root.disconnect()
+                    Button:
+                        size_hint_y: 0.1
+                        text: 'Find my ip'
+                        on_press: root.find_my_ip()
+
+                    BoxLayout:
+
+
+
+
+
+
+
+
+    #gwindow:
+    #    orientation:'vertical'
+    #    id: graph_window
+
+
+
+
+
+
+    #BoxLayout:
+    #    size_hint_y: 0.1
+     #   Label:
+    #        id:texxt
+    #    Label:
+    #        id:textt
